@@ -12,7 +12,11 @@ public class Menu {
         System.out.println("ls_name_asc - 이름 순으로 정렬");
         System.out.println("ls_name_desc - 이름 역순으로 정렬");
         System.out.println("ls_date - 날짜 순으로 정렬");
+        System.out.println("ls_date_desc - 날짜 역순으로 정렬");
         System.out.println("help - 명령어 도우미");
+        System.out.println("find <keyWord> - 해당 키워드 찾기 (제목 및 내용 비교)");
+        System.out.println("find_cate <keyWord> - 해당 키워드 찾기 (카테고리 비교) ");
+        System.out.println("ls_cate - 등록되어 있는 카테고리 출력");
         System.out.println("exit - 종료");
         System.out.print("메뉴를 선택해주세요 > ");
     }
@@ -27,7 +31,11 @@ public class Menu {
         System.out.println("ls_name_asc");
         System.out.println("ls_name_desc");
         System.out.println("ls_date");
+        System.out.println("ls_date_desc");
         System.out.println("help");
+        System.out.println("find <keyWord>");
+        System.out.println("find_cate <keyWord>");
+        System.out.println("ls_cate");
         System.out.println("exit");
         System.out.print("메뉴를 선택해주세요 > ");
     }

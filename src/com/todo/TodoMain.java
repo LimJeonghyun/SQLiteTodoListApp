@@ -15,12 +15,36 @@ public class TodoMain {
 		boolean isList = false;
 		boolean quit = false;
 		boolean call = false;
+		boolean find = false;
+		String key;
 		TodoUtil.loadList(l, "todolist.txt");
 		do {
 			if(call == false) Menu.displaymenu();
 			isList = false;
-			String choice = sc.next();
+			String choice = sc.nextLine().trim();
 			call = false;
+
+			if (choice.indexOf("find")!=-1) {
+				if (choice.indexOf("find_cate")!=-1) {
+					key = choice.replace("find_cate ", "");
+					choice = "find_cate";
+					TodoUtil.findCategory(l, key);
+				}
+				else {
+					key=choice.replace("find ", "");
+					choice = "find";
+					TodoUtil.findAll(l, key);
+				}
+				
+			}
+				
+			// else if (choice.indexOf("find")!=-1) {
+			// 	// find =true;
+			// 	String key = choice.replace("find ", "");
+			// 	TodoUtil.findAll(l, key);
+			// 	choice = "find";
+			// 	}
+			// }
 			switch (choice) {
 
 			case "add":
@@ -30,7 +54,6 @@ public class TodoMain {
 			
 			case "del":
 				TodoUtil.deleteItem(l);
-				System.out.println("내용 삭제를 완료했습니다!");
 				break;
 				
 			case "edit":
@@ -61,6 +84,13 @@ public class TodoMain {
 				System.out.println("날짜 순으로 정렬하였습니다!");
 				isList = true;
 				break;
+			
+			case "ls_date_desc":
+				l.sortByDate();
+				l.reverseList();
+				System.out.println("날짜 역순으로 정렬하였습니다!");
+				isList = true;
+				break;
 
 			case "exit":
 				System.out.println("종료합니다!");
@@ -73,8 +103,18 @@ public class TodoMain {
 				call = true;
 				break;
 
+			case "find":
+				break;
+			
+			case "find_cate":
+				break;
+
+			case "ls_cate":
+				TodoUtil.listCate(l);
+				break;
+
 			default:
-				System.out.println("메뉴에 나와있는 명령어를 입력해주세요:( (help 입력해주세요~)");
+				System.out.println("\n메뉴에 나와있는 명령어를 입력해주세요:( (help 입력해주세요~)");
 				break;
 			}
 			

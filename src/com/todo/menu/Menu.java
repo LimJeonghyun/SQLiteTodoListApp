@@ -9,7 +9,7 @@ public class Menu {
         System.out.println("del - 목록 삭제");
         System.out.println("edit - 목록 수정");
         System.out.println("ls - 목록 모두 보이기");
-        System.out.println("ls_name_asc - 이름 순으로 정렬");
+        System.out.println("ls_name - 이름 순으로 정렬");
         System.out.println("ls_name_desc - 이름 역순으로 정렬");
         System.out.println("ls_date - 날짜 순으로 정렬");
         System.out.println("ls_date_desc - 날짜 역순으로 정렬");
@@ -28,7 +28,7 @@ public class Menu {
         System.out.println("del");
         System.out.println("edit");
         System.out.println("ls");
-        System.out.println("ls_name_asc");
+        System.out.println("ls_name");
         System.out.println("ls_name_desc");
         System.out.println("ls_date");
         System.out.println("ls_date_desc");

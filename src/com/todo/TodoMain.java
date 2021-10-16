@@ -12,7 +12,7 @@ public class TodoMain {
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
 		boolean importance = false;
-		l.importData("todolist.txt");
+//		l.importData("todolist.txt");
 		
 		boolean quit = false;
 		do {

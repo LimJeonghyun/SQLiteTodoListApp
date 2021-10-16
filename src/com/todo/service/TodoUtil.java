@@ -24,7 +24,6 @@ public class TodoUtil {
 		title = sc.nextLine().trim();
 		if (l.isDuplicate(title)) {
 			System.out.println("제목은 중복될 수 없습니다.");
-			sc.close();
 			return;
 		}
 		System.out.print("카테고리 > ");
@@ -81,6 +80,10 @@ public class TodoUtil {
 		sc.nextLine();
 		System.out.print("새 제목 > ");
 		new_title = sc.nextLine().trim();
+		if (l.isDuplicate(new_title)) {
+			System.out.println("제목은 중복될 수 없습니다.");
+			return;
+		}
 		System.out.print("새 내용 > ");
 		new_desc = sc.nextLine().trim();
 		System.out.print("새 마감일자 > ");

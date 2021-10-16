@@ -17,7 +17,7 @@ public class TodoUtil {
 
 	public static void createItem(TodoList l) {
 
-		String title, desc, category, due_date;
+		String title, desc, category, due_date, completeness, priority, member;
 		Scanner sc = new Scanner(System.in);
 
 		System.out.print("\n" + "[항목 추가]\n" + "제목 > ");
@@ -34,7 +34,13 @@ public class TodoUtil {
 		desc = sc.nextLine().trim();
 		System.out.print("마감일자 > ");
 		due_date = sc.nextLine().trim();
-		TodoItem t = new TodoItem(title, desc, category,due_date);
+		System.out.print("중요도 추가 (*/no 으로 구분) > " );
+		priority=sc.next();
+		sc.nextLine();
+		System.out.print("공유하는 인원 추가 (&으로 구분) > ");
+		member = sc.nextLine().trim();
+		completeness = "미완료";
+		TodoItem t = new TodoItem(title, desc, category,due_date, completeness, priority, member);
 //		l.addItem(t);
 		if (l.addItem(t) > 0)
 			System.out.println("추가되었습니다.");
@@ -42,30 +48,50 @@ public class TodoUtil {
 
 	public static void deleteItem(TodoList l) {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("\n" + "[항목 삭제]\n" + "삭제할 항목의 번호 >  ");
-		int index = sc.nextInt();
-		if (l.deleteItem(index) > 0)
-			System.out.println("삭제되었습니다.");
+		System.out.print("\n" + "[항목 삭제]\n" + "삭제할 항목의 번호 (동시 삭제 가능 / &로 구분) >  ");
+		String indexL = sc.nextLine();
+		String[] index = indexL.split(" & ");
+		for(int i=0; i<index.length; i++) {
+			l.deleteItem(Integer.parseInt(index[i]));
+		}
+		System.out.println("삭제되었습니다.");
+	}
+	
+	public static void deletAllItem(TodoList l) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("\n"+"[모든 항목 삭제]\n" + "모든 항목을 삭제하시겠습니까? (y/n) > ");
+		String answer = sc.next();
+		int count = 0;
+		if (answer.equals("y")) {
+			l.deleteAll();
+			System.out.println("모두 삭제되었습니다!");
+		}
+			
 	}
 	
 	
 	public static void updateItem(TodoList l) {
-		String new_title, new_desc, new_category, new_due_date;
+		String new_title, new_desc, new_category, new_due_date, new_completeness, new_priority, new_member;
 		Scanner sc = new Scanner(System.in);
 		System.out.print("\n" + "[항목 수정]\n" + "수정할 항목의 번호 > ");
 		int index = sc.nextInt();
-
-		System.out.print("새 제목 > ");
-		new_title = sc.nextLine().trim();
-		sc.nextLine();
+		
 		System.out.print("새 카테고리 > ");
 		new_category = sc.next();
 		sc.nextLine();
+		System.out.print("새 제목 > ");
+		new_title = sc.nextLine().trim();
 		System.out.print("새 내용 > ");
 		new_desc = sc.nextLine().trim();
 		System.out.print("새 마감일자 > ");
 		new_due_date = sc.nextLine().trim();
-		TodoItem t = new TodoItem(new_title, new_desc, new_category, new_due_date);
+		System.out.print("중요도 추가 (*/no 으로 구분) > ");
+		new_priority = sc.next();
+		sc.nextLine();
+		System.out.print("새 공유멤버 지정 > ");
+		new_member = sc.nextLine();
+		new_completeness = "미완료";
+		TodoItem t = new TodoItem(new_title, new_desc, new_category, new_due_date, new_completeness, new_priority, new_member);
 		t.setId(index);
 		if (l.updateItem(t) > 0)
 			System.out.println("수정되었습니다.");
@@ -97,6 +123,19 @@ public class TodoUtil {
 		}
 	}
 	
+	public static void listAllpriority(TodoList l) {
+		System.out.println("");
+		System.out.printf("[전체 목록, 총 %d개]\n", l.getCount());
+		System.out.printf("\n*** 중요한 할 일 ***\n");
+		for (TodoItem item : l.getListpriority()) {
+			System.out.println(item.toString());
+		}
+		System.out.printf("\n*** 할 일 ***\n");
+		for (TodoItem item : l.getListpriority_none()) {
+			System.out.println(item.toString());
+		}
+	}
+	
 	public static void listAll(TodoList l, String orderby, int ordering) {
 		System.out.printf("[전체 목록, 총 %d개]\n", l.getCount());
 		for (TodoItem item : l.getOrderedList(orderby, ordering)) {
@@ -111,6 +150,17 @@ public class TodoUtil {
 			count ++;
 		}
 		System.out.printf("\n총 %d개의 카테고리가 등록되어 있습니다.\n", count);
+	}
+	
+	public static void update(TodoList l) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("\n" + "[완료 표시]\n" + "완료로 바꿀 번호 (동시 완료 가능 / &로 구분) >  ");
+		String indexL = sc.nextLine();
+		String[] index = indexL.split(" & ");
+		for(int i=0; i<index.length; i++) {
+			l.updateCompleteness(Integer.parseInt(index[i]));
+		}
+		System.out.println("완료로 체크하였습니다.");
 	}
 }
 

@@ -11,12 +11,13 @@ public class TodoMain {
 	public static void start() {
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
-//		l.importData("todolist.txt");
+		boolean importance = false;
+		l.importData("todolist.txt");
 		
 		boolean quit = false;
-		Menu.displaymenu();
-
 		do {
+			Menu.displaymenu();
+
 			String choice = sc.next();
 
 			switch (choice) {
@@ -28,13 +29,37 @@ public class TodoMain {
 			case "del":
 				TodoUtil.deleteItem(l);
 				break;
+			
+			case "delA":
+				TodoUtil.deletAllItem(l);
+				break;
 				
 			case "edit":
 				TodoUtil.updateItem(l);
 				break;
 				
+			case "alarmOnOff":
+				if(importance == false) {
+					System.out.println("중요도 알람을 켰습니다.");
+					importance = true;
+				}
+				else if(importance == true) {
+					System.out.println("중요도 알람을 껐습니다.");
+					importance = false;
+				}
+				break;
+				
+			case "update":
+				TodoUtil.update(l);
+				break;
+				
 			case "ls":
-				 TodoUtil.listAll(l);
+				if (importance == true) {
+					TodoUtil.listAllpriority(l);
+				}
+				else if(importance == false) {
+					TodoUtil.listAll(l);
+				}
 				break;
 
 			case "ls_name":
